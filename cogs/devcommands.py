@@ -69,7 +69,11 @@ class DevCommands(commands.Cog, name='Developer Commands'):
 		base_string += "\n".join([str(cog) for cog in self.bot.extensions])
 		base_string += "\n```"
 		await ctx.send(base_string)
-
-
+	@commands.command(name="shutdown", aliases=['sd'])
+	async def shutdown(self,ctx):
+		'''
+		Shutdown , Dev Only
+    '''
+		await ctx.bot.logout()
 def setup(bot):
 	bot.add_cog(DevCommands(bot))
