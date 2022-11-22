@@ -3,13 +3,13 @@ import os
 from keep_alive import keep_alive
 from discord import client,Intents
 from discord.ext import commands
-from lists import name_list, title_list
+from lists import name_list, title_list,spamton
 from urllib.request import urlopen
 from random import randint
 import logging
 intents = discord.Intents.default()
 intents.messages = True
-version ='1.2'
+version ='1.3'
 bot = commands.Bot(
 	command_prefix="u!",  # Change to desired prefix
 	case_insensitive=True,  # Commands aren't case-sensitive
@@ -36,7 +36,7 @@ async def on_ready():  # When the bot is ready
 
 @bot.command()
 async def commands(ctx):
-  await ctx.reply("Commands:\nU!Username: Returns Random Username\nU!pogcheck: Are you [[POG]]? RUN THIS [[DISCORD BOT]] COMMAND TO [[FIND OUT]]\nReportIssue: Reports an Issue")
+  await ctx.reply("Commands:\nU!Username: Returns Random Username\nU!pogcheck: Are you [[POG]]? RUN THIS [[DISCORD BOT]] COMMAND TO [[FIND OUT]]\nu!ReportIssue: Reports an Issue\nu!BIGSHOT: DO YOU WANT TO BE A [[SHOT BIG?]]")
 @bot.command()
 async def username(ctx):
    try:
@@ -104,7 +104,9 @@ try:
 except:
   logging.debug('Error Encountered during reportIssue')
   
-
+@bot.command()
+async def BIGSHOT(ctx):
+  await ctx.reply(spamton[randint(0,len(spamton)-1)])
 
 
   

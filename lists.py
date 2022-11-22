@@ -80,7 +80,8 @@ name_list = [
   'Lillie',
  'Margie',
   'Alison',
-  'Flowey'
+  'Flowey',
+  'jennifer'
 ]
 title_list = [
 'me_when',
@@ -92,4 +93,21 @@ title_list = [
 'the_sixth',
 'the_seventh',
 'the_last'
+]
+spamton = [
+  'MY EYES ARE [[Burning]] LIKE THE [[Television Sets at 50% the price]]',
+  'WHY BE A [[Sponge]] THAT HATES ITS [[$4.99]] LIFE',
+   'VACATIONING IN [Burning acid] WHILE YOU SOAK IN THE [[Hyperlink Blocked]]',
+  'HERE I GO!!!! WATCH ME FLY, [MAMA]!!!!',
+  'DONT FORGET TO [Like and Subscribe] FOR MORE [Hyperlink Blocked]!',
+  'SPAMTON SWEEPSTAKES!!! DONATE TO CHARITY OR ENTER NOW TO [Win Pr13zes!] AND HELP OUT THE [Little Guys]',
+  'THATS RIGHT!! NOWS YOUR CHANCE TO BE A [[BIG SHOT]]!!',
+  'YOU WANT IT\nYOU WANT [[Hyperlink Blocked]], DONT YOU.',
+  '[[A Great Deal]] IS WAITING For [[A LimiTed Time Only!]]\nA HEAVEN-PIERCING [[Workout-Ready Body]]',
+  'EVERY [Big], EVERY [Shot], EVERY [Hyperlink Blocked], ALL YOURS, KRIS.',
+  'TOO MANY EXCESS VACATION DAYS?? TAKE A GOD DAMN VACATION STRAIGHT TO HELL',
+  'TURNING DOWN A BELOVED [[Stranger]]... THATS NOT VERY [[Big Shot]] OF YOU, KRIS.',
+  'WHAT ARE YOU AFRAID OF??? ACCORDING TO [[Encyclopedia of]] [[Being Afraid]]',
+  'can anyone hear me...help...',
+  'WE DONT NEED ANY [[Man, Woman, or Child]] [[At Half Price]]!!'
 ]
