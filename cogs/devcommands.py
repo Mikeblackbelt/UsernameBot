@@ -74,6 +74,6 @@ class DevCommands(commands.Cog, name='Developer Commands'):
 		'''
 		Shutdown , Dev Only
     '''
-		await ctx.bot.logout()
+		await ctx.bot.logout
 def setup(bot):
 	bot.add_cog(DevCommands(bot))

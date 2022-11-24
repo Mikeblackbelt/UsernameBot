@@ -9,7 +9,7 @@ from random import randint
 import logging
 intents = discord.Intents.default()
 intents.messages = True
-version ='1.3'
+version ='1.4'
 bot = commands.Bot(
 	command_prefix="u!",  # Change to desired prefix
 	case_insensitive=True,  # Commands aren't case-sensitive
@@ -36,7 +36,7 @@ async def on_ready():  # When the bot is ready
 
 @bot.command()
 async def commands(ctx):
-  await ctx.reply("Commands:\nU!Username: Returns Random Username\nU!pogcheck: Are you [[POG]]? RUN THIS [[DISCORD BOT]] COMMAND TO [[FIND OUT]]\nu!ReportIssue: Reports an Issue\nu!BIGSHOT: DO YOU WANT TO BE A [[SHOT BIG?]]")
+  await ctx.reply("Commands:\nU!Username: Returns Random Username\nU!pogcheck: Are you [[POG]]? RUN THIS [[DISCORD BOT]] COMMAND TO [[FIND OUT]]\nu!ReportIssue: Reports an Issue\nu!BIGSHOT: DO YOU WANT TO BE A [[SHOT BIG?]]\nu!skillcheck do you have skill?\nu!roblox_user Get a random roblox user , or put a range of IDS (seperate with spaces)")
 @bot.command()
 async def username(ctx):
    try:
@@ -108,12 +108,39 @@ except:
 async def BIGSHOT(ctx):
   await ctx.reply(spamton[randint(0,len(spamton)-1)])
 
-
+@bot.command()
+async def Skillcheck(ctx):
+  await ctx.reply('You  have '+randint(1,100)+ '% Skill')
   
 extensions = [
-	'cogs.devcommands'  # Same name as it would be if you were importing it
+	'cogs.devcommands'  # Same name as it would be if you were importing ites
 ]
+@bot.command()
+async def Roblox_User(ctx,min:str = '0',max:str='4050000000'):
+  loop = 0
+  try:
+    min = int(min)
+    max = int(max)
+    userID = randint(int(min), int(max))
+    weblink = "https://web.roblox.com/users/" + str(userID) + "/profile"
+    url = weblink
+    while loop < 100:
+      try:
+        page = urlopen(url)
+        html_bytes = page.read()
+        html = html_bytes.decode("utf-8")
+        unformatted = html.split('username":"')[1]
+        formatted = unformatted.split('"')[0]
+        loop = 100
+      except:
+        loop += 1
+        if loop == 100:
+          formatted = ("Users Not Found. Sorry")
 
+      finally:
+        await ctx.reply('User: '+formatted+'\nID: ' + str(userID))
+  except:
+    await ctx.reply("Nope. Please put a valid number")
 
 
 if __name__ == '__main__':  # Ensures this is the file being ran

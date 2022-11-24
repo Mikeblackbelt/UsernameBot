@@ -110,4 +110,5 @@ spamton = [
   'WHAT ARE YOU AFRAID OF??? ACCORDING TO [[Encyclopedia of]] [[Being Afraid]]',
   'can anyone hear me...help...',
   'WE DONT NEED ANY [[Man, Woman, or Child]] [[At Half Price]]!!'
+  'WE DONT NEED [[MIKE]]'
 ]
