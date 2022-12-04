@@ -1,21 +1,25 @@
-import discord
-import os
+#Discord-Related
+
+import discord 
 from keep_alive import keep_alive
-from discord import client,Intents
+from discord import Intents
 from discord.ext import commands
+from discord import app_commands
+
+#Command-Related/Other
+
 from lists import name_list, title_list,spamton
 from urllib.request import urlopen
-from random import randint
+from random import randint,choice
 import logging
-intents = discord.Intents.default()
-intents.messages = True
-version ='1.4'
-bot = commands.Bot(
-	command_prefix="u!",  # Change to desired prefix
-	case_insensitive=True,  # Commands aren't case-sensitive
-  intents=intents 
-)
-bot.author_id = 928109349140824125
+import os
+from dotenv import loaddotenv
+
+
+#Bots Version
+version ='1.5'
+
+
 #Logging Setup
 logging.basicConfig (
 
@@ -27,19 +31,15 @@ logging.basicConfig (
 
 )
 
+#Other setup
+author_id = 928109349140824125
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
 
-
-
-@bot.event 
-async def on_ready():  # When the bot is ready
-    logging.info(("Bot Ready as "+ str(bot.user)))
-
-@bot.command()
-async def commands(ctx):
-  await ctx.reply("Commands:\nU!Username: Returns Random Username\nU!pogcheck: Are you [[POG]]? RUN THIS [[DISCORD BOT]] COMMAND TO [[FIND OUT]]\nu!ReportIssue: Reports an Issue\nu!BIGSHOT: DO YOU WANT TO BE A [[SHOT BIG?]]\nu!skillcheck do you have skill?\nu!roblox_user Get a random roblox user , or put a range of IDS (seperate with spaces)")
-@bot.command()
-async def username(ctx):
-   try:
+#Username Command
+@tree.command(name = "username8", description = "Generate a random Username")
+async def username8(interaction):
     z = randint(0,len(name_list) - 1) 
     za = randint(0, len(title_list) - 1)
     url = "https://www.mit.edu/~ecprice/wordlist.10000"
@@ -48,27 +48,29 @@ async def username(ctx):
     html = html_bytes.decode("utf-8")
     wordlist = html.split('\n')
     name = []
-    if randint(0,1) == 1:
+    randomnumero = randint(0,4)
+    if randomnumero == 0:
      name.append(wordlist[randint(1, len(wordlist) - 1)])
      name.append(wordlist[randint(1, len(wordlist) - 1)])
-    else:
-      if randint(0,1) == 1:
+     print('0')
+    elif randomnumero == 1:
         name.append(str(name_list[z]))
         name.append(wordlist[randint(1, len(wordlist) - 1)])
-      else: 
+        print('1')
+    elif randomnumero == 2:
+        name.append(wordlist[randint(1, len(wordlist) - 1)])
+        name.append(str(name_list[z]))
+        print('2')
+    elif randomnumero == 3:
+        name.append(str(name_list[z]))  
+        name.append(str(title_list[za]))
+        print('')
+    elif randomnumero == 4:
         if randint(0,1) == 1:
-          name.append(wordlist[randint(1, len(wordlist) - 1)])
-          name.append(str(name_list[z]))
+            name.append("The_Legend_of")
         else:
-          if randint(0,1) == 1:
-            name.append(str(name_list[z]))  
-            name.append(str(title_list[za]))
-          else:
-            if randint(0,1) == 1:
-              name.append("The_Legend_of")
-            else:
-              name.append("The_Secret_of")
-            name.append(str(name_list[z]))
+            name.append("The_Secret_of")
+    name.append(str(name_list[z]))
     print("Generated")
     random = randint(0,5)
     if random == 1:
@@ -83,44 +85,19 @@ async def username(ctx):
       usernamec = (name[0] + '_' + name[1] + str(randint(10000,99999)))
     else:
       usernamec = (name[0] + '_' + name[1])
-    await ctx.reply('Username: ' +usernamec , mention_author=True)
-   except Exception as e:
-     logging.critical(('Command (Username Generator) failed with error '+e))
-      
+    await interaction.response.send_message(usernamec)
 
-@bot.command()
-async def pogcheck(ctx):
-  await ctx.reply('Pog level: '+ str(randint(0,100))+'%')
-try:
-  @bot.command()
-  async def reportIssue(ctx,Issue:str = None):
-    if Issue == None:
-      await ctx.reply("Nope. Atleast Write the Issue.")
-    else: 
-      author = str(ctx.message.author)
-      report_file = open('reports.txt','a')
-      report_file.writelines(author+' in verison: '+version+' Sent Issue:\n'+Issue +'\n\n\n')
-      await ctx.reply('Issue Logged!')
-except:
-  logging.debug('Error Encountered during reportIssue')
   
-@bot.command()
-async def BIGSHOT(ctx):
-  await ctx.reply(spamton[randint(0,len(spamton)-1)])
+#roblox command
 
-@bot.command()
-async def Skillcheck(ctx):
-  await ctx.reply('You  have '+randint(1,100)+ '% Skill')
   
-extensions = [
-	'cogs.devcommands'  # Same name as it would be if you were importing ites
-]
-@bot.command()
-async def Roblox_User(ctx,min:str = '0',max:str='4050000000'):
-  loop = 0
-  try:
-    min = int(min)
-    max = int(max)
+@tree.command(name = "robloxuser", description = "Generate a random roblox user")
+@app_commands.describe(minid='Minimum ID for search', maxid='Maximum ID for search')
+async def Roblox_User(interaction: discord.Interaction, minid: app_commands.Range[int, 0, 10000000000], maxid: app_commands.Range[int, 0, 10000000000]):
+    loop = 0
+    min = int(minid)
+    max = int(maxid)
+    await interaction.response.defer()
     userID = randint(int(min), int(max))
     weblink = "https://web.roblox.com/users/" + str(userID) + "/profile"
     url = weblink
@@ -131,21 +108,42 @@ async def Roblox_User(ctx,min:str = '0',max:str='4050000000'):
         html = html_bytes.decode("utf-8")
         unformatted = html.split('username":"')[1]
         formatted = unformatted.split('"')[0]
-        loop = 100
+        loop = 1000
+        print('yea ok')
       except:
         loop += 1
         if loop == 100:
-          formatted = ("Users Not Found. Sorry")
+          formatted = ("N/A")
 
-      finally:
-        await ctx.reply('User: '+formatted+'\nID: ' + str(userID))
-  except:
-    await ctx.reply("Nope. Please put a valid number")
+    
+    await interaction.followup.send('User ID: '+str(userID)+'\nUserName: '+formatted)
+
+@tree.command(name='reportissue' , description='Report an Issue')
+@app_commands.describe(issue='The Issue to report')
+async def reportissue(interaction: discord.Interaction, issue: str):
+  await interaction.response.defer()
+  author = str(interaction.user.id)
+  report_file = open('reports.txt','a')
+  report_file.writelines(author+' in verison: '+version+' Sent Issue:\n'+issue +'\n\n\n')
+  await interaction.followup.send("Your issue has been logged! Thanks for helping Ubot grow!")
+
+@tree.command(name='big_shot',description='i cant use caps im [[sad]]')
+async def bigshot(interaction: discord.Interaction):
+  await interaction.response.send_message(choice(spamton))
 
 
-if __name__ == '__main__':  # Ensures this is the file being ran
-  for extension in extensions:
-    bot.load_extension(extension)  
-keep_alive()  # Starts a webserver to be pinged.
-token = os.environ.get("token") 
-bot.run(token)  # Starts the bot
+@tree.command(name='pogcheck',description='bor is  p tpg vbfebgy' )
+async def pogcheck(interaction: discord.Interaction):
+  await interaction.response.send_message('You are '+randint(0,100)+'% pog')
+
+@client.event
+async def on_ready():
+    await tree.sync()
+    print("Ready!")
+    logging.info(("Ready!"))
+
+
+
+keep_alive()  
+token = (loaddotenv("token.env")) 
+client.run(token)
