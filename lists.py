@@ -110,5 +110,8 @@ spamton = [
   'WHAT ARE YOU AFRAID OF??? ACCORDING TO [[Encyclopedia of]] [[Being Afraid]]',
   'can anyone hear me...help...',
   'WE DONT NEED ANY [[Man, Woman, or Child]] [[At Half Price]]!!'
-  'WE DONT NEED [[MIKE]]'
+  'WE DONT NEED [[MIKE]]',
+  'THIS IS [Victory Smoke]!! IT MEANS ITS TIME FOR MY [Second Form]!',
+  'YOU WONT FIND HIGHER ATTACK AND DEFENSE ANYWHERE ELSE!!! THE SMOOTH TASTE OF NEO "WAKE UP AND TASTE THE PAIN"',
+  'CUT THAT [Wire] AND MAKE ME A [Real Boy]!!'
 ]
